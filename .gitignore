@@ -1,0 +1,9 @@
+/.idea/.gitignore
+/.idea/checkstyle-idea.xml
+/.idea/compiler.xml
+/hangman_game.iml
+/.idea/jpa-buddy.xml
+/target/
+/.idea/misc.xml
+/.idea/vcs.xml
+
