@@ -5,38 +5,36 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Game {
     private static final Path path = Paths.get("src/main/java/resources/test.txt");
     private String word;
 
-
     public void startGame() {
         //загружаем слово из списка слов
         word = someWord();
-
     }
-
 
     private String someWord() {
         List<String> stringsList = textFileToList();
+        return chooseRandomWord(stringsList);
+    }
 
-
-        return null;
+    private String chooseRandomWord(List<String> strings) {
+        Random random = new Random();
+        return strings.get(random.nextInt(strings.size()));
     }
 
     private List<String> textFileToList() {
         try {
-            List<String> allValidWords = Files.readAllLines(path)
+            return Files.readAllLines(path)
                     .stream()
                     .map(String::strip)
                     .filter(s -> !s.isBlank())
                     .filter(s -> !s.contains(" "))
                     .collect(Collectors.toList());
-
-            System.out.println(allValidWords);
-            return allValidWords;
 
         } catch (IOException e) {
             throw new RuntimeException(e);
