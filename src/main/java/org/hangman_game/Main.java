@@ -1,6 +1,6 @@
 package org.hangman_game;
 
-public class Start {
+public class Main {
 //    public static String exit = "1";
 
     public static void main(String[] args) {
