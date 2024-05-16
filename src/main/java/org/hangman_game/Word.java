@@ -10,16 +10,51 @@ import java.util.stream.Collectors;
 
 public class Word {
     private static final Path path = Paths.get("src/main/java/resources/test.txt");
+    private final View view = new View();
+    private static Word instance;
+    private String word;
+    private char[] arrWord;
 
-    String word = someWord();
-
-    public int comparableLetter(char letterInput, String word){
-       return word.indexOf(letterInput);
+    private Word() {
+        setWord();
+        createGameTerminalWord();
+        showTerminalWord();
     }
 
-    private String someWord() {
+    public void createGameTerminalWord() {
+        int i = 0;
+        arrWord = new char[word.length()];
+        while (i < word.length()) {
+            arrWord[i] = '_';
+            i++;
+        }
+    }
+
+    public void comparableLetter(char inputLetter) {
+        boolean flag = false;
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) == inputLetter) {
+                arrWord[i] = inputLetter;
+                flag = true;
+            }
+        }
+        if (!flag) {
+            attempts();
+            showTerminalWord();
+        } else {
+            showTerminalWord();
+        }
+    }
+
+
+    private void attempts() {
+        int count = 0;
+
+    }
+
+    private void setWord() {
         List<String> stringsList = textFileToList();
-        return chooseRandomWord(stringsList);
+        this.word = chooseRandomWord(stringsList);
     }
 
     private List<String> textFileToList() {
@@ -41,7 +76,14 @@ public class Word {
         return strings.get(random.nextInt(strings.size()));
     }
 
-    public String getWord() {
-        return word;
+    public static Word getInstance() {
+        if (instance == null) {
+            instance = new Word();
+        }
+        return instance;
+    }
+
+    private void showTerminalWord() {
+        view.wordView(arrWord);
     }
 }
