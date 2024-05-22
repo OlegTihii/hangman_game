@@ -4,16 +4,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Word {
     private static final Path path = Paths.get("src/main/java/resources/test.txt");
-    private final View view = new View();
     private static Word instance;
+    private final View view = new View();
     private String word;
     private char[] arrWord;
+
 
     private Word() {
         setWord();
@@ -39,17 +41,9 @@ public class Word {
             }
         }
         if (!flag) {
-            attempts();
-            showTerminalWord();
-        } else {
-            showTerminalWord();
+            view.countingAttempts();
         }
-    }
-
-
-    private void attempts() {
-        int count = 0;
-
+        showTerminalWord();
     }
 
     private void setWord() {
@@ -85,5 +79,13 @@ public class Word {
 
     private void showTerminalWord() {
         view.wordView(arrWord);
+    }
+
+    public boolean getStatus() {
+        return Arrays.equals(word.toCharArray(), arrWord);
+    }
+
+    public View getView() {
+        return view;
     }
 }
